@@ -480,7 +480,11 @@ if __name__ == "__main__":
 		try :
 			MigrationFile = open(fromfile, 'r')
 			MigrationData = json.loads(MigrationFile.read())
-			#print(MigrationData)
+			# Populate the selectedUsers, otherwise the script will get to iterateMigrationData
+			# and do nothing.
+			if not selectedUsers:
+				for user in MigrationData.keys():
+					selectedUsers.append(user)
 		except : 
 			print("cannot open file {0}".format(tofile))
 			sys.exit(1)
